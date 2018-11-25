@@ -7,14 +7,14 @@ const userSchema = new Schema({
         trim: true,
         required: true
     },
-    kudosSent: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Kudos'
-    }],
-    kudosReceived: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Kudos'
-    }]
+    kudosSent: {
+        type: Number,
+        default: 0
+    },
+    kudosReceived: {
+        type: Number,
+        default: 0
+    }
 });
 
 const User = mongoose.model('User', userSchema);
