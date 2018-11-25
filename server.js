@@ -13,6 +13,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, './app/public')));
 app.use(express.json());
 
+require('./app/routes')(app);
+
 app.listen(PORT, () => {
     console.log(`App listening on http://localhost:${PORT}`);
 });
