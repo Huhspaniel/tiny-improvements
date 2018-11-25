@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 8080;
 const mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/tiny-improvements', {
     useNewUrlParser: true
-})
+});
 const db = mongoose.connection;
 
 const app = express();
