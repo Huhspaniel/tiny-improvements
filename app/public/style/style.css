@@ -1,0 +1,6 @@
+.kudo-list {
+  display: flex;
+  flex-direction: column; }
+
+.kudo-list .kudo {
+  padding: 5px; }

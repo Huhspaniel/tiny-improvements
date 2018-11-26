@@ -1,5 +1,5 @@
 const models = require('../models')
-const { User, Kudos } = models;
+const { User, Kudo } = models;
 
 module.exports = function (app) {
     app.route('/api/users')
@@ -31,20 +31,20 @@ module.exports = function (app) {
         });
     app.route('/api/kudos')
         .get((req, res) => {
-            Kudos.find({}).populate('to').populate('from')
+            Kudo.find({}).populate('to').populate('from')
                 .then(data => res.json(data))
                 .catch(err => res.json(err))
         })
         .post((req, res) => {
-            Kudos.create(req.body)
-                .then(kudos => (
-                    User.findByIdAndUpdate(kudos.from, { $inc: { kudosSent: 1 } })
-                        .then(() => User.findByIdAndUpdate(kudos.to, { $inc: { kudosReceived: 1 } }))
-                        .then(() => Kudos.findById(kudos._id)
+            Kudo.create(req.body)
+                .then(Kudo => (
+                    User.findByIdAndUpdate(Kudo.from, { $inc: { KudoSent: 1 } })
+                        .then(() => User.findByIdAndUpdate(Kudo.to, { $inc: { KudoReceived: 1 } }))
+                        .then(() => Kudo.findById(Kudo._id)
                             .populate('to').populate('from')
                         )
                 ))
-                .then(kudos => res.json(kudos))
+                .then(Kudo => res.json(Kudo))
                 .catch(err => res.json(err));
         })
 }
