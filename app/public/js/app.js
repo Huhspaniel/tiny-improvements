@@ -1,4 +1,4 @@
-let kudosList = [];
+let kudoList = [];
 
 function getKudos(cb) {
     const xhr = new XMLHttpRequest();
@@ -9,8 +9,8 @@ function getKudos(cb) {
     }
     xhr.send();
 }
-const Kudos = props => (
-    `<div class='kudos' key=${props._id}>
+const Kudo = props => (
+    `<div class='kudo' key=${props._id}>
         <h2>${props.title}</h2>
         <h3>From: ${props.from.name}</h3>
         <h3>To: ${props.to.name}</h3>
@@ -18,12 +18,12 @@ const Kudos = props => (
     </div>`
 )
 function render() {
-    console.log(kudosList);
-    kudosList.forEach(props => {
-        document.querySelector('.kudos-list').innerHTML += Kudos(props);
+    console.log(kudoList);
+    kudoList.forEach(props => {
+        document.querySelector('.kudo-list').innerHTML += Kudo(props);
     })
 }
 getKudos(data => {
-    kudosList = data;
+    kudoList = data;
     render();
 })

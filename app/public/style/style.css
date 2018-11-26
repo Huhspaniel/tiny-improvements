@@ -1,6 +1,6 @@
-.kudos-list {
+.kudo-list {
   display: flex;
   flex-direction: column; }
 
-.kudos-list .kudos {
+.kudo-list .kudo {
   padding: 5px; }
