@@ -1,31 +1,49 @@
-let kudoList = [];
 const DOM = {
     kudoTitle: document.querySelector('.kudo-title'),
     kudoBody: document.querySelector('.kudo-body'),
     kudoSubmit: document.querySelector('.kudo-submit'),
     kudoTo: document.querySelector('.kudo-to'),
-    kudoFrom: document.querySelector('.kudo-from')
+    kudoFrom: document.querySelector('.kudo-from'),
+    kudoList: document.querySelector('.kudo-list')
 }
 
-function getKudos(cb) {
+function ajaxJSON({ type, url, success, error, data }) {
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', '/api/kudos/');
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.onload = () => {
-        cb(kudoList = JSON.parse(xhr.response));
+    try {
+        xhr.open(type.toUpperCase(), url);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        if (success) xhr.onload = () => {
+            success(JSON.parse(xhr.response));
+        };
+        xhr.send(JSON.stringify(data));
+    } catch (err) {
+        if (error) error(err);
+        else throw err;
     }
-    xhr.send();
 }
-function postKudo(kudo, cb) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', '/api/kudos');
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.onload = () => {
-        const res = JSON.parse(xhr.response);
-        cb ? cb(res) : console.log(res);
-    }
-    xhr.send(JSON.stringify(kudo));
+function getUsers(onload) {
+    ajaxJSON({
+        type: 'GET',
+        url: '/api/users',
+        success: onload
+    });
 }
+function getKudos(onload) {
+    ajaxJSON({
+        type: 'GET',
+        url: '/api/kudos',
+        success: onload
+    });
+}
+function postKudo(kudo, onload) {
+    ajaxJSON({
+        type: 'POST',
+        url: '/api/kudos',
+        success: onload,
+        data: kudo
+    });
+}
+
 function getKudoInput() {
     return {
         title: DOM.kudoTitle.value,
@@ -37,9 +55,17 @@ function getKudoInput() {
 function clearKudoInput() {
     DOM.kudoTitle.value = '';
     DOM.kudoBody.value = '';
-    DOM.kudoFrom.value = '';
-    DOM.kudoTo.value = '';
+    DOM.kudoFrom.value = 'Sender';
+    DOM.kudoTo.value = 'Receiver';
 }
+function clearKudos() {
+    DOM.kudoList.innerHTML = '';
+}
+function clear() {
+    clearKudoInput();
+    clearKudos();
+}
+
 const Kudo = props => (
     `<div class='kudo' key=${props._id}>
         <h2>${props.title}</h2>
@@ -48,17 +74,26 @@ const Kudo = props => (
         <p>${props.body}</p>
     </div>`
 )
-function renderKudos() {
-    kudoList.forEach(props => {
-        document.querySelector('.kudo-list').innerHTML += Kudo(props);
+function renderKudos(kudos) {
+    kudos.forEach(props => {
+        DOM.kudoList.innerHTML += Kudo(props);
     })
 }
-getKudos(data => {
-    console.log(data);
-    renderKudos();
-})
+function renderUserSelects(users) {
+    let user;
+    users.forEach(({ _id, name }) => {
+        user = `<option value="${_id}">${name}</option>`;
+        DOM.kudoFrom.innerHTML += user;
+        DOM.kudoTo.innerHTML +=  user;
+    });
+}
+
+getKudos(renderKudos);
+getUsers(renderUserSelects);
+
 document.querySelector('.kudo-submit').addEventListener('click', e => {
     e.preventDefault();
     postKudo(getKudoInput());
+    clear();
     getKudos(renderKudos);
-})
+});
