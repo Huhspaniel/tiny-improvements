@@ -1,11 +1,18 @@
 let kudoList = [];
+const DOM = {
+    kudoTitle: document.querySelector('.kudo-title'),
+    kudoBody: document.querySelector('.kudo-body'),
+    kudoSubmit: document.querySelector('.kudo-submit'),
+    kudoTo: document.querySelector('.kudo-to'),
+    kudoFrom: document.querySelector('.kudo-from')
+}
 
 function getKudos(cb) {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', '/api/kudos/');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.onload = () => {
-        cb(JSON.parse(xhr.response));
+        cb(kudoList = JSON.parse(xhr.response));
     }
     xhr.send();
 }
@@ -17,7 +24,21 @@ function postKudo(kudo, cb) {
         const res = JSON.parse(xhr.response);
         cb ? cb(res) : console.log(res);
     }
-    xhr.send(kudo);
+    xhr.send(JSON.stringify(kudo));
+}
+function getKudoInput() {
+    return {
+        title: DOM.kudoTitle.value,
+        body: DOM.kudoBody.value,
+        to: DOM.kudoTo.value,
+        from: DOM.kudoFrom.value
+    };
+}
+function clearKudoInput() {
+    DOM.kudoTitle.value = '';
+    DOM.kudoBody.value = '';
+    DOM.kudoFrom.value = '';
+    DOM.kudoTo.value = '';
 }
 const Kudo = props => (
     `<div class='kudo' key=${props._id}>
@@ -27,13 +48,17 @@ const Kudo = props => (
         <p>${props.body}</p>
     </div>`
 )
-function render() {
-    console.log(kudoList);
+function renderKudos() {
     kudoList.forEach(props => {
         document.querySelector('.kudo-list').innerHTML += Kudo(props);
     })
 }
 getKudos(data => {
-    kudoList = data;
-    render();
+    console.log(data);
+    renderKudos();
+})
+document.querySelector('.kudo-submit').addEventListener('click', e => {
+    e.preventDefault();
+    postKudo(getKudoInput());
+    getKudos(renderKudos);
 })
