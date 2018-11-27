@@ -9,6 +9,16 @@ function getKudos(cb) {
     }
     xhr.send();
 }
+function postKudo(kudo, cb) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/api/kudos');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onload = () => {
+        const res = JSON.parse(xhr.response);
+        cb ? cb(res) : console.log(res);
+    }
+    xhr.send(kudo);
+}
 const Kudo = props => (
     `<div class='kudo' key=${props._id}>
         <h2>${props.title}</h2>
