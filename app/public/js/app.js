@@ -75,6 +75,7 @@ const Kudo = props => (
     </div>`
 )
 function renderKudos(kudos) {
+    if (!kudos[0]) return DOM.kudoList.innerHTML = '<div style=padding:10px>No kudos have been given :(</div>';
     kudos.forEach(props => {
         DOM.kudoList.innerHTML += Kudo(props);
     })
