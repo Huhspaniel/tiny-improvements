@@ -19,6 +19,10 @@ header {
 
     display: flex;
     flex-direction: column;
+    p {
+        padding: 0;
+        margin: 0;
+    }
 }
 
 .kudo-form {
@@ -32,6 +36,11 @@ header {
     width: 100%;
     max-width: 900px;
     height: 90px;
+
+    *:focus {
+        outline: none;
+        box-shadow: 0 0 10px black;
+    }
 }
 
 .kudo-users {
@@ -45,22 +54,34 @@ header {
 .kudo-text {
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
     width: 100%;
     font-size: 18px;
     > textarea, input {
+        border-radius: 10px;
+        border: 2px inset white;
+        box-sizing: border-box;
         font-size: 14px;
         width: 100%;
+        padding: 5px;
     }
     > textarea {
+        margin-top: 5px;
         flex-grow: 1;
     }
 }
 
 .kudo-submit {
+    border-radius: 10px;
+    border: 2px outset white;
     width: 100%;
     max-width: 200px;
     margin: 20px 0;
-    font-size: 18px;
+    font-size: 17px;
+    &:active {
+        border-style: inset;
+        background-color: darken(white, 10%)
+    }
 }
 
 h2 {
@@ -78,9 +99,10 @@ h2 {
         text-align: center;
         box-shadow: 0 0 5px black;
         background-color: #f0f0f0;
-        padding: 5px;
-        // text-align: left;
+        padding: 20px;
+        box-sizing: border-box;
         width: 100%;
-        max-width: 400px;
+        max-width: 600px;
+        margin: 2px 0;
     }
 }
