@@ -94,10 +94,14 @@ document.querySelector('.kudo-submit').addEventListener('click', e => {
     e.preventDefault();
     const kudo = getKudoInput();
     if (kudo) {
-        postKudo(kudo);
-        getKudos(kudos => {
-            clear();
-            renderKudos(kudos);
+        postKudo(kudo, data => {
+            if (!data.errors) getKudos(kudos => {
+                clear();
+                renderKudos(kudos);
+            })
+            else {
+                console.log(data);
+            }
         });
     }
 });
