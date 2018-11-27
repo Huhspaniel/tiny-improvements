@@ -68,9 +68,9 @@ function clear() {
 
 const Kudo = props => (
     `<div class='kudo' key=${props._id}>
-        <h2>${props.title}</h2>
-        <h3>From: ${props.from.name}</h3>
-        <h3>To: ${props.to.name}</h3>
+        <h3>${props.title}</h3>
+        <h4>From: ${props.from.name}</h4>
+        <h4>To: ${props.to.name}</h4>
         <p>${props.body}</p>
     </div>`
 )
