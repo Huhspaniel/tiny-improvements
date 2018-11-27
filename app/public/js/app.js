@@ -55,8 +55,6 @@ function getKudoInput() {
 function clearKudoInput() {
     DOM.kudoTitle.value = '';
     DOM.kudoBody.value = '';
-    DOM.kudoFrom.value = 'Sender';
-    DOM.kudoTo.value = 'Receiver';
 }
 function clearKudos() {
     DOM.kudoList.innerHTML = '';
