@@ -92,9 +92,12 @@ getUsers(renderUserSelects);
 
 document.querySelector('.kudo-submit').addEventListener('click', e => {
     e.preventDefault();
-    postKudo(getKudoInput());
-    getKudos(kudos => {
-        clear();
-        renderKudos(kudos);
-    });
+    const kudo = getKudoInput();
+    if (kudo) {
+        postKudo(kudo);
+        getKudos(kudos => {
+            clear();
+            renderKudos(kudos);
+        });
+    }
 });
