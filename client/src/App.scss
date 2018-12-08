@@ -1,0 +1,108 @@
+:root {
+    font-family: 'Raleway', sans-serif;
+}
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #fafafa;
+}
+h1 {
+    margin: 0;
+    padding: 20px;
+}
+
+header {
+    background-color: #f0f0f0;
+    padding: 20px;
+    position: sticky;
+    -webkit-position: sticky;
+
+    display: flex;
+    flex-direction: column;
+    p {
+        padding: 0;
+        margin: 0;
+    }
+}
+
+.kudo-form {
+    align-self: center;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: 1fr;
+    align-items: stretch;
+    justify-items: stretch;
+    grid-gap: 20px;
+    width: 100%;
+    max-width: 900px;
+    height: 90px;
+
+    *:focus {
+        outline: none;
+        box-shadow: 0 0 10px black;
+    }
+}
+
+.kudo-users {
+    width: 100%;
+    max-width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.kudo-text {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 18px;
+    > textarea, input {
+        border-radius: 10px;
+        border: 2px inset white;
+        box-sizing: border-box;
+        font-size: 14px;
+        width: 100%;
+        padding: 5px;
+    }
+    > textarea {
+        margin-top: 5px;
+        flex-grow: 1;
+    }
+}
+
+.kudo-submit {
+    border-radius: 10px;
+    border: 2px outset white;
+    width: 100%;
+    max-width: 200px;
+    margin: 20px 0;
+    font-size: 17px;
+    &:active {
+        border-style: inset;
+        background-color: darken(white, 10%)
+    }
+}
+
+h2 {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.kudo-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+    
+    .kudo {
+        text-align: center;
+        box-shadow: 0 0 5px black;
+        background-color: #f0f0f0;
+        padding: 20px;
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 600px;
+        margin: 2px 0;
+    }
+}
