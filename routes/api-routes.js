@@ -37,10 +37,10 @@ module.exports = function (app) {
         })
         .post((req, res) => {
             Kudo.create(req.body)
-                .then(Kudo => (
+                .then(kudo => (
                     User.findByIdAndUpdate(Kudo.from, { $inc: { KudoSent: 1 } })
                         .then(() => User.findByIdAndUpdate(Kudo.to, { $inc: { KudoReceived: 1 } }))
-                        .then(() => Kudo.findById(Kudo._id)
+                        .then(() => Kudo.findById(kudo._id)
                             .populate('to').populate('from')
                         )
                 ))
