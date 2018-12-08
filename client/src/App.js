@@ -21,9 +21,13 @@ class App extends Component {
     return (
       <div className='root'>
         <Header refreshKudos={this.refreshKudos} />
-        {this.state.kudos && this.state.kudos[0] ?
-          KudoList({ kudos: this.state.kudos })
-          : <div style={{ padding: '10px' }}>No kudos have been given :(</div>}
+        {
+          this.state.kudos ?
+            this.state.kudos[0] ?
+              KudoList({ kudos: this.state.kudos })
+              : <div style={{ padding: '10px' }}>No kudos have been given :(</div>
+            : ''
+        }
       </div>
     );
   }
